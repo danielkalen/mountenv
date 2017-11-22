@@ -10,9 +10,9 @@ Features:
 - auto loads `.env.prod` when `NODE_ENV === 'production'` (in addition)
 - auto loads `.env.test` when `NODE_ENV === 'test'` (in addition)
 
-Note: this library is still under development stage and is being processed through heavy real-world battle testing. Full documentation will be released once this module is ready for alpha release.
 
-![preview](docs/preview.jpg?raw=true)
+![preview](doc/preview.jpg?raw=true)
+Note: this library is still under development stage and is being processed through heavy real-world battle testing. Full documentation will be released once this module is ready for alpha release.
 
 
 ### `mountenv.load([dir])`
