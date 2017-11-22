@@ -1,0 +1,34 @@
+{
+  "name": "mountenv",
+  "version": "0.0.1",
+  "description": "mount/load .env files with support for .env.prod/.env.dev files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielkalen/mountenv.git"
+  },
+  "keywords": [
+    "dotenv",
+    "loadenv",
+    "env",
+    "environment",
+    "variable",
+    "mount",
+    "node_env"
+  ],
+  "author": "danielkalen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielkalen/mountenv/issues"
+  },
+  "homepage": "https://github.com/danielkalen/mountenv#readme",
+  "dependencies": {
+    "coffee-register": "^0.1.2",
+    "dotenv": "^4.0.0",
+    "extend": "^3.0.1",
+    "fs-jetpack": "^1.2.0"
+  }
+}
