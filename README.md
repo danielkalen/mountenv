@@ -1,4 +1,8 @@
 # mountenv
+[![Build Status](https://travis-ci.org/danielkalen/mountenv.svg?branch=master)](https://travis-ci.org/danielkalen/mountenv)
+[![Code Climate](https://codeclimate.com/github/danielkalen/mountenv/badges/gpa.svg)](https://codeclimate.com/github/danielkalen/mountenv)
+[![NPM](https://img.shields.io/npm/v/mountenv.svg)](https://npmjs.com/package/mountenv)
+
 Features:
 - extends [dotenv](https://npmjs.com/package/dotenv) functionality
 - supports loading .env files under `CWD` or a specific directory
