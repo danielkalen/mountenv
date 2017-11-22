@@ -12,6 +12,7 @@ Features:
 
 Note: this library is still under development stage and is being processed through heavy real-world battle testing. Full documentation will be released once this module is ready for alpha release.
 
+![preview](docs/preview.jpg?raw=true)
 ## Syntax Rules
 see [dotenv's rules section](https://www.npmjs.com/package/dotenv#rules).
 
