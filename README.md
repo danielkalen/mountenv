@@ -13,6 +13,36 @@ Features:
 Note: this library is still under development stage and is being processed through heavy real-world battle testing. Full documentation will be released once this module is ready for alpha release.
 
 ![preview](docs/preview.jpg?raw=true)
+
+
+### `mountenv.load([dir])`
+Loads env files in the provided directory and extends current process environment. `dir` defaults to `process.cwd()`.
+
+```javascript
+require('mountenv').load()
+```
+
+
+### `mountenv.get([dir])`
+Loads env files in the provided directory and returns the result object (does NOT extend current process environment). `dir` defaults to `process.cwd()`.
+
+```javascript
+var result = require('mountenv').get('./config/')
+```
+
+
+### `mountenv.parse(string)`
+Parses the provided string as an env file and returns the result object.
+
+```javascript
+var env = `
+    ABC=123
+    DEF=456
+`
+var result = require('mountenv').parse(env)
+```
+
+
 ## Syntax Rules
 see [dotenv's rules section](https://www.npmjs.com/package/dotenv#rules).
 
