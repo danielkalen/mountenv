@@ -4,6 +4,8 @@
   "description": "mount/load .env files with support for .env.prod/.env.dev files",
   "main": "index.js",
   "scripts": {
+    "prepublishOnly": "npm run test -s",
+    "postpublish": "git push",
     "test": "mocha -u tdd --compilers coffee:coffee-register --slow 1000 --timeout 8000 test/test.coffee"
   },
   "repository": {
