@@ -57,13 +57,14 @@ suite "mountenv", ()->
 
 	suite ".load()", ()->
 		test "loads .env file from given path and extends process env", ()->
+			process.env.GHI = '444'
 			expect(process.env.ABC).to.equal undefined
 			expect(process.env.DEF).to.equal undefined
-			expect(process.env.GHI).to.equal undefined
+			expect(process.env.GHI).to.equal '444'
 			expect(mountenv.load(SAMPLE)).to.equal process.env
 			expect(process.env.ABC).to.equal '111'
 			expect(process.env.DEF).to.equal '222'
-			expect(process.env.GHI).to.equal '333'
+			expect(process.env.GHI).to.equal '444'
 
 	
 	suite ".parse()", ()->

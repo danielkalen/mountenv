@@ -24,7 +24,8 @@ exports.get = (path)->
 
 
 exports.load = (path)->	
-	return extend process.env, exports.get(path)
+	current = extend {}, process.env
+	return extend process.env, exports.get(path), current
 
 
 exports.parse = (content)->
