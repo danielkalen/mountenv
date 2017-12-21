@@ -2,9 +2,9 @@ fs = require 'fs-jetpack'
 extend = require 'extend'
 Path = require 'path'
 
-exports.get = (path)->
+exports.get = (path, basename)->
 	path ?= process.cwd()
-	baseEnv = Path.join(path, '.env')
+	baseEnv = Path.join(path, basename or '.env')
 	files = []
 	output = Object.create(null)
 	
@@ -22,10 +22,12 @@ exports.get = (path)->
 
 	return output
 
-
-exports.load = (path)->	
+exports.getAll = (path, basename)->
 	current = extend {}, process.env
-	return extend process.env, exports.get(path), current
+	return extend exports.get(path, basename), current
+
+exports.load = (path, basename)->	
+	return extend process.env, exports.getAll(path, basename)
 
 
 exports.parse = (content)->

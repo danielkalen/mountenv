@@ -54,6 +54,28 @@ suite "mountenv", ()->
 			process.env.NODE_ENV = 'test'
 			expect(mountenv.get(SAMPLE)).to.eql {ABC:'111', DEF:'222', GHI:'666'}
 
+		test "accepts env file basename as a second argument", ()->
+			writeMyEnv()
+			process.env.NODE_ENV = 'test'
+			expect(mountenv.get(SAMPLE)).to.eql {}
+			expect(mountenv.get(SAMPLE, 'myEnv')).to.eql {LMN:'777', OPQ:'888'}
+
+
+	suite ".getAll()", ()->
+		test "loads .env file and returns js object including current process env", ()->
+			process.env.GHI = '444'
+			expect(process.env.ABC).to.equal undefined
+			expect(process.env.DEF).to.equal undefined
+			expect(process.env.GHI).to.equal '444'
+			result = mountenv.getAll(SAMPLE)
+			expect(result).not.to.equal process.env
+			expect(process.env.ABC).to.equal undefined
+			expect(process.env.DEF).to.equal undefined
+			expect(process.env.GHI).to.equal '444'
+			expect(result.ABC).to.equal '111'
+			expect(result.DEF).to.equal '222'
+			expect(result.GHI).to.equal '444'
+
 
 	suite ".load()", ()->
 		test "loads .env file from given path and extends process env", ()->
@@ -66,6 +88,15 @@ suite "mountenv", ()->
 			expect(process.env.DEF).to.equal '222'
 			expect(process.env.GHI).to.equal '444'
 
+		test "accepts env file basename as a second argument", ()->
+			writeMyEnv()
+			process.env.NODE_ENV = 'test'
+			mountenv.load(SAMPLE)
+			expect(process.env.LMN).to.equal undefined
+			mountenv.load(SAMPLE, 'myEnv')
+			expect(process.env.LMN).to.equal '777'
+			expect(process.env.OPQ).to.equal '888'
+
 	
 	suite ".parse()", ()->
 		test "parses provided string as env file and returns object", ()->
@@ -73,4 +104,9 @@ suite "mountenv", ()->
 			expect(mountenv.parse(contents)).to.eql {ABC:'111', DEF:'222', GHI:'333'}
 
 
+
+writeMyEnv = ()->
+	fs.dir SAMPLE, empty:true
+	fs.write "#{SAMPLE}/myEnv", "LMN=777"
+	fs.write "#{SAMPLE}/myEnv.test", "OPQ=888"
 
