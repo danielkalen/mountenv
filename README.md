@@ -31,6 +31,14 @@ var result = require('mountenv').get('./config/')
 ```
 
 
+### `mountenv.getAll([dir])`
+Loads env files in the provided directory and returns the result object including definitions from current `process.env` (does NOT extend current process environment). `dir` defaults to `process.cwd()`.
+
+```javascript
+var result = require('mountenv').get('./config/')
+```
+
+
 ### `mountenv.parse(string)`
 Parses the provided string as an env file and returns the result object.
 
