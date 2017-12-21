@@ -1,6 +1,6 @@
 {
   "name": "mountenv",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "mount/load .env files with support for .env.prod/.env.dev files",
   "main": "index.js",
   "scripts": {
