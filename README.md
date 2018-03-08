@@ -51,6 +51,30 @@ var result = require('mountenv').parse(env)
 ```
 
 
+## Custom env file name
+By default, `mountenv` looks for files starting with `.env` in the `cwd`:
+```
+├── .env
+├── .env.dev
+└── .env.prod
+└── .env.test
+```
+
+If you want `mountenv` to look for files with a different prefix, pass `{basename:'mycustomname'}` as the 2nd argument for any of the above mentioned methods:
+```javascript
+require('mountenv').load(null, {basename:'.myenv'})
+```
+
+
+## Variable expansion
+By default variable expansion is turned off so if you want `mountenv` to resolve nested variables pass `{expand:true}` as the 2nd argument for any of the above mentioned methods:
+```javascript
+require('mountenv').parse(`
+    PROJECT_DIR=$HOME/this-project
+`, {expand:true}) //-> {PROJECT_DIR: 'Users/thisuser/this-project'}
+```
+
+
 ## Syntax Rules
 see [dotenv's rules section](https://www.npmjs.com/package/dotenv#rules).
 

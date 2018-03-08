@@ -1,10 +1,13 @@
 fs = require 'fs-jetpack'
 extend = require 'extend'
+expand = require './expand'
 Path = require 'path'
+defaults = require './defaults'
 
-exports.get = (path, basename)->
+exports.get = (path, conf)->
+	conf = resolveConf(conf)
 	path ?= process.cwd()
-	baseEnv = Path.join(path, basename or '.env')
+	baseEnv = Path.join(path, conf.basename)
 	files = []
 	output = Object.create(null)
 	
@@ -20,20 +23,21 @@ exports.get = (path, basename)->
 	for file in files
 		extend output, exports.parse(fs.read file)
 
-	return output
+	return if conf.expand then expand(output) else output
 
-exports.getAll = (path, basename)->
+exports.getAll = (path, conf)->
 	current = extend {}, process.env
-	return extend exports.get(path, basename), current
+	return extend exports.get(path, conf), current
 
-exports.load = (path, basename)->	
-	return extend process.env, exports.getAll(path, basename)
+exports.load = (path, conf)->	
+	return extend process.env, exports.getAll(path, conf)
 
 
 exports.parse = (content)->
 	require('dotenv').parse content
 
 
-
+resolveConf = (conf)->
+	extend {}, defaults, conf
 
 

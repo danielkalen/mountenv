@@ -54,11 +54,11 @@ suite "mountenv", ()->
 			process.env.NODE_ENV = 'test'
 			expect(mountenv.get(SAMPLE)).to.eql {ABC:'111', DEF:'222', GHI:'666'}
 
-		test "accepts env file basename as a second argument", ()->
+		test "accepts env file basename as an option in second argument", ()->
 			writeMyEnv()
 			process.env.NODE_ENV = 'test'
 			expect(mountenv.get(SAMPLE)).to.eql {}
-			expect(mountenv.get(SAMPLE, 'myEnv')).to.eql {LMN:'777', OPQ:'888'}
+			expect(mountenv.get(SAMPLE, basename:'myEnv')).to.eql {LMN:'777', OPQ:'888'}
 
 
 	suite ".getAll()", ()->
@@ -88,12 +88,12 @@ suite "mountenv", ()->
 			expect(process.env.DEF).to.equal '222'
 			expect(process.env.GHI).to.equal '444'
 
-		test "accepts env file basename as a second argument", ()->
+		test "accepts env file basename as an option in second argument", ()->
 			writeMyEnv()
 			process.env.NODE_ENV = 'test'
 			mountenv.load(SAMPLE)
 			expect(process.env.LMN).to.equal undefined
-			mountenv.load(SAMPLE, 'myEnv')
+			mountenv.load(SAMPLE, basename:'myEnv')
 			expect(process.env.LMN).to.equal '777'
 			expect(process.env.OPQ).to.equal '888'
 
@@ -104,9 +104,41 @@ suite "mountenv", ()->
 			expect(mountenv.parse(contents)).to.eql {ABC:'111', DEF:'222', GHI:'333'}
 
 
+	suite "expansion", ()->
+		test "can be toggled on via options {expand:true}", ()->
+			process.env.EXTERNAL = 456
+			writeMyEnv """
+				AAA=123
+				BBB=$AAA
+				CCC=${AAA} $BBB 456
+				DDD=$EEE \\${EEE}
+				EEE=\\$ESCAPE $NADA 123
+				FFF=$EXTERNAL for \\$EXTERNAL
+			""", ' '
 
-writeMyEnv = ()->
+			unexpected = 
+				AAA: '123'
+				BBB: '$AAA'
+				CCC: '${AAA} $BBB 456'
+				DDD: '$EEE \\${EEE}'
+				EEE: '\\$ESCAPE $NADA 123'
+				FFF: '$EXTERNAL for \\$EXTERNAL'
+
+			expected = 
+				AAA: '123'
+				BBB: '123'
+				CCC: '123 123 456'
+				DDD: '$ESCAPE  123 ${EEE}'
+				EEE: '$ESCAPE  123'
+				FFF: '456 for $EXTERNAL'
+
+			expect(mountenv.get(SAMPLE, basename:'myenv')).to.eql unexpected
+			expect(mountenv.get(SAMPLE, basename:'myenv', expand:true)).to.eql expected
+
+
+
+writeMyEnv = (mainContent, testContent)->
 	fs.dir SAMPLE, empty:true
-	fs.write "#{SAMPLE}/myEnv", "LMN=777"
-	fs.write "#{SAMPLE}/myEnv.test", "OPQ=888"
+	fs.write "#{SAMPLE}/myEnv", mainContent or "LMN=777"
+	fs.write "#{SAMPLE}/myEnv.test", testContent or "OPQ=888"
 
