@@ -132,8 +132,8 @@ suite "mountenv", ()->
 				EEE: '$ESCAPE  123'
 				FFF: '456 for $EXTERNAL'
 
-			expect(mountenv.get(SAMPLE, basename:'myenv')).to.eql unexpected
-			expect(mountenv.get(SAMPLE, basename:'myenv', expand:true)).to.eql expected
+			expect(mountenv.get(SAMPLE, basename:'myEnv')).to.eql unexpected
+			expect(mountenv.get(SAMPLE, basename:'myEnv', expand:true)).to.eql expected
 
 
 
