@@ -67,7 +67,7 @@ require('mountenv').load(null, {basename:'.myenv'})
 
 
 ## Variable expansion
-By default variable expansion is turned off so if you want `mountenv` to resolve nested variables pass `{expand:true}` as the 2nd argument for any of the above mentioned methods:
+By default variable expansion is turned on so if you want `mountenv` to resolve nested variables pass `{expand:true}` as the 2nd argument for any of the above mentioned methods:
 ```javascript
 require('mountenv').parse(`
     PROJECT_DIR=$HOME/this-project
