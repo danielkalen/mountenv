@@ -105,7 +105,7 @@ suite "mountenv", ()->
 
 
 	suite "expansion", ()->
-		test "can be toggled on via options {expand:true}", ()->
+		setup ()->
 			process.env.EXTERNAL = 456
 			writeMyEnv """
 				AAA=123
@@ -116,7 +116,7 @@ suite "mountenv", ()->
 				FFF=$EXTERNAL for \\$EXTERNAL
 			""", ' '
 
-			unexpected = 
+			@withoutExpansion = 
 				AAA: '123'
 				BBB: '$AAA'
 				CCC: '${AAA} $BBB 456'
@@ -124,16 +124,20 @@ suite "mountenv", ()->
 				EEE: '\\$ESCAPE $NADA 123'
 				FFF: '$EXTERNAL for \\$EXTERNAL'
 
-			expected = 
+			@withExpansion = 
 				AAA: '123'
 				BBB: '123'
 				CCC: '123 123 456'
 				DDD: '$ESCAPE  123 ${EEE}'
 				EEE: '$ESCAPE  123'
 				FFF: '456 for $EXTERNAL'
+		
+		test "can be toggled on via options {expand:true}", ()->
+			expect(mountenv.get(SAMPLE, basename:'myenv', expand:false)).to.eql @withoutExpansion
+			expect(mountenv.get(SAMPLE, basename:'myenv', expand:true)).to.eql @withExpansion
 
-			expect(mountenv.get(SAMPLE, basename:'myenv')).to.eql unexpected
-			expect(mountenv.get(SAMPLE, basename:'myenv', expand:true)).to.eql expected
+		test "is toggled on by default", ()->
+			expect(mountenv.get(SAMPLE, basename:'myenv')).to.eql @withExpansion
 
 
 
