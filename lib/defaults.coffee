@@ -1,3 +1,3 @@
 module.exports = 
 	basename: '.env'
-	expand: false
+	expand: true
