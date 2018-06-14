@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/danielkalen/mountenv#readme",
   "dependencies": {
-    "coffee-register": "^0.1.2",
+    "coffee-register": "^2.0.0",
     "dotenv": "^4.0.0",
     "extend": "^3.0.1",
     "fs-jetpack": "^1.2.0"
