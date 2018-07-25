@@ -29,13 +29,15 @@ exports.getAll = (path, conf)->
 	current = extend {}, process.env
 	return extend exports.get(path, conf), current
 
-exports.load = (path, conf)->	
+exports.load = (path, conf)->
+	exports.origEnv ?= extend {}, process.env
 	return extend process.env, exports.getAll(path, conf)
 
 
 exports.parse = (content)->
 	require('dotenv').parse content
 
+exports.origEnv = undefined
 
 resolveConf = (conf)->
 	extend {}, defaults, conf
