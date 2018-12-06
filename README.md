@@ -8,11 +8,11 @@ Features:
 - supports loading .env files under `CWD` or a specific directory
 - auto loads `.env.dev` when `NODE_ENV === 'development'` (in addition)
 - auto loads `.env.prod` when `NODE_ENV === 'production'` (in addition)
+- auto loads `.env.staging` when `NODE_ENV === 'staging'` (in addition)
 - auto loads `.env.test` when `NODE_ENV === 'test'` (in addition)
 
 
 ![preview](doc/preview.jpg?raw=true)
-Note: this library is still under development stage and is being processed through heavy real-world battle testing. Full documentation will be released once this module is ready for alpha release.
 
 
 ### `mountenv.load([dir])`

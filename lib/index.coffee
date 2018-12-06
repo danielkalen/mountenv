@@ -17,6 +17,8 @@ exports.get = (path, conf)->
 			files.push("#{baseEnv}.dev") if fs.exists("#{baseEnv}.dev")
 		when 'production'
 			files.push("#{baseEnv}.prod") if fs.exists("#{baseEnv}.prod")
+		when 'staging'
+			files.push("#{baseEnv}.staging") if fs.exists("#{baseEnv}.staging")
 		when 'test'
 			files.push("#{baseEnv}.test") if fs.exists("#{baseEnv}.test")
 
