@@ -1,10 +1,11 @@
 {
   "name": "mountenv",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "mount/load .env files with support for .env.prod/.env.dev files",
   "main": "index.js",
   "scripts": {
-    "prepublishOnly": "npm run test -s",
+    "build": "coffee -c -o build/ lib/",
+    "prepublishOnly": "npm run build && npm run test -s",
     "postpublish": "git push",
     "test": "mocha -u tdd --compilers coffee:coffee-register --slow 1000 --timeout 8000 test/test.coffee"
   },
@@ -28,13 +29,14 @@
   },
   "homepage": "https://github.com/danielkalen/mountenv#readme",
   "dependencies": {
-    "coffee-register": "^2.0.0",
     "dotenv": "^4.0.0",
     "extend": "^3.0.1",
     "fs-jetpack": "^1.2.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "coffee-register": "^2.2.0",
+    "coffeescript": "^2.7.0",
     "mocha": "^3.5.3"
   }
 }
