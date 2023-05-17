@@ -1,2 +1,1 @@
-require('coffee-register');
-module.exports = require('./lib');
+module.exports = require('./build');
